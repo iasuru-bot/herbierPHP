@@ -14,9 +14,9 @@ $releve = filter_input(INPUT_POST, "releve");
 include_once "../config.php";
 $pdo = new PDO("mysql:host=".Config::SERVEUR.";dbname=".Config::BDD, Config::UTILISATEUR, Config::MOTDEPASSE);
 $req=$pdo->prepare("insert into releve (DateReleve, Lieu, Releve) values (:Date, :Lieu, :Releve)");
-$req->bindParam(":DateReleve", $Date);
-$req->bindParam(":Lieu", $Lieu);
-$req->bindParam(":Releve", $Releve);
+$req->bindParam(":Date", $dateReleve);
+$req->bindParam(":Lieu", $lieu);
+$req->bindParam(":Releve", $releve);
 
 $req->execute();
 

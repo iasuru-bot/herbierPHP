@@ -8,69 +8,68 @@ $title="Herbiers";
 include "header.php";
 ?>
     <h1>Relevés</h1>
+    <?php
+
+    include_once "config.php";
+
+?>
+<div>
     <table class="table table-striped">
         <tr>
+            <th>id</th>
             <th>Date</th>
             <th>Lieu</th>
             <th>Relevé</th>
             <th>Visualiser</th>
+            <th>Supprimer</th>
         </tr>
-        <tr>
-            <td>03/01/2022</td>
-            <td>Roscanvel Z1</td>
-            <td>3/4/2/7/6/8/5/6/3</td>
-            <td><a target="_blank" class="btn btn-sm btn-primary" href="drawHerbier.php?">voir</a> <input type="submit" name="delete" value="Supprimer"></td>
 
-        </tr>
+        <?php
+            $pdo = new PDO("mysql:host=" . Config::SERVEUR . ";dbname=" . Config::BDD, Config::UTILISATEUR, Config::MOTDEPASSE);
+    $req = $pdo->prepare("select * from releve");
+    $req->execute();
+    $lignes = $req->fetchAll();
+foreach ($lignes as $l) {
+    ?>
+
         <tr>
-            <td>04/01/2022</td>
-            <td>Roscanvel Z2</td>
-            <td>1/3/2/5/3/3/2/1/5</td>
-            <td><a target="_blank" class="btn btn-sm btn-primary" href="drawHerbier.php?d=1/3/2/5/3/3/2/1/5">voir</a></td>
-        </tr>
-        <tr>
-            <td>05/01/2022</td>
-            <td>Morlaix P1</td>
-            <td>5/7/8/9/7/6/8/9/8</td>
-            <td><a target="_blank" class="btn btn-sm btn-primary" href="drawHerbier.php?d=5/7/8/9/7/6/8/9/8">voir</a></td>
-        </tr>
-        <tr>
-            <td>07/01/2022</td>
-            <td>Roscanvel Z1</td>
-            <td>4/5/6/7/9/7/6/5/4</td>
-            <td><a target="_blank" class="btn btn-sm btn-primary" href="drawHerbier.php?d=4/5/6/7/9/7/6/5/4">voir</a></td>
-        </tr>
-        <tr>
-            <td>09/01/2022</td>
-            <td>Camaret</td>
-            <td>3/4/5/2/4/6/4/7/2</td>
-            <td><a target="_blank" class="btn btn-sm btn-primary" href="drawHerbier.php?d=3/4/5/2/4/6/4/7/2">voir</a></td>
-        </tr>
+            <td><?php echo htmlentities($l["id"]) ?></td>
+            <td><?php echo htmlentities($l["DateReleve"]) ?></td>
+            <td><?php echo htmlentities($l["Lieu"]) ?></td>
+            <td><?php echo htmlentities($l["Releve"]) ?></td>
+            <td><a target="_blank" class="btn btn-sm btn-primary" href="herbier_draw.php?d=<?php echo $l["Releve"] ?>">voir</a></td>
+    </tr>
+
+
+    <?php
+}
+?>
     </table>
-    <hr>
-    <form class="form">
-        <h2>Ajouter un relevé</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="date" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="date" name="date" required>
-                </div>
-                <div class="mb-3">
-                    <label for="lieu" class="form-label">Lieu</label>
-                    <input type="text" class="form-control" id="lieu" name="lieu" required>
-                </div>
-                <div class="mb-3">
-                    <label for="donnees" class="form-label">Données</label>
-                    <input type="text" class="form-control" id="donnees" name="donnees" required>
-                </div>
-
-                <input type="submit" class="btn btn-primary" value="OK">
-            </div>
-        </div>
-
-    </form>
 </div>
+    <h2>Ajouter un relevé</h2>
+    <div class="row">
+        <div class="col-6">
+            <form method="post" action="actions/creerListe.php">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="DateReleve" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="DateReleve" name="dateReleve" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Lieu" class="form-label">Lieu</label>
+                            <input type="text" class="form-control" id="Lieu" name="lieu" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Releve" class="form-label">Releve</label>
+                            <input type="text" class="form-control" id="Releve" name="releve" required>
+                        </div>
 
+                        <input type="submit" class="btn btn-primary" value="OK">
+                <input type="hidden" name="token" value="<?php echo $token ?>">
+            </form>
+        </div>
+    </div>
+    </div>
 <?php
 include "footer.php";
