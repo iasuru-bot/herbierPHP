@@ -4,25 +4,38 @@ $token=uniqid();
 $_SESSION["token"]=$token;
 $title= "Visualisation de l'herbier";
 include "header.php";
+
+//récupération des chiffres de la relevé
 //$nombre = filter_input(INPUT_GET,"d");
 $nombre="0/1/3/9/8/1/2/3/6";
 $nombre = explode('/',$nombre);
-$nombreIterationRestante =["0","0","0","0","0","0","0","0","0"];
+
+//Définition des variables globales
 $largeur1 = 3;
-$largeur2 = 3;
-$largeur3 = 30;
+$largeurGrandTab2 = 3;
+$largeurPetitTab2 = 3;
+$largeurGrandTab3 = 30;
+$largeurPetitTab3 = 3;
+$nombreIterationRestante=["100","100","100","100","100","100","100","100","100"];
+
+//essaie
+/*for ($i=0;$i<count($nombre);$i++){
+    $nombreIterationRestante[] =$largeurGrandTab3*$largeurGrandTab3%count($nombre);
+}
+for ($i=0; $i<$largeurGrandTab3%9; $i++){
+    $nombreIterationRestante[$i] +=1;
+}*/
 
 
-
-function creerTableaucouleur($nombrecase,$largeurtableau){
+//retourne un tableau colorie fonction du nombre de case a colorier et de la largeur du tableau
+function creerTableaucouleur($nombreCase, $largeurTab){
 
     $index=[];
     //création d'un tableau index permettant de savoir si on doit placer un bloc ou pas
-    for ($i=0;$i<$nombrecase;$i++){
+    for ($i=0;$i<$nombreCase;$i++){
         do{
-            $rand=rand(0,$largeurtableau*$largeurtableau-1);
+            $rand=rand(0,$largeurTab*$largeurTab-1);
         } while(in_array($rand,$index));
-
         $index[]=$rand;
     }
     ?>
@@ -31,13 +44,12 @@ function creerTableaucouleur($nombrecase,$largeurtableau){
         <tr>
             <?php
             //On teste a travers le tableau d'index si la position est colorié ou non
-            for ($i=0;$i<$largeurtableau*$largeurtableau;$i++){
-                if ($i%$largeurtableau==0 && $i!=0) echo "</tr><tr>";
+            for ($i=0; $i<$largeurTab*$largeurTab; $i++){
+                if ($i%$largeurTab==0 && $i!=0) echo "</tr><tr>";
                 if (in_array($i,$index)) echo "<td class = 'vert'></td>";
                 else echo "<td></td>";
             }
             ?>
-
         </tr>
     </tbody>
 
@@ -62,9 +74,9 @@ function creerTableaucouleur($nombrecase,$largeurtableau){
             <tr>
                 <?php
                 for ($i=0;$i<count($nombre);$i++){
-                    if($i%$largeur2==0 && $i!=0) echo "</tr><tr>";
+                    if($i%$largeurGrandTab2==0 && $i!=0) echo "</tr><tr>";
                     echo "<td><table class='petitTableau'>";
-                    creerTableaucouleur($nombre[$i],$largeur2);
+                    creerTableaucouleur($nombre[$i],$largeurPetitTab2);
                     echo "</table></td>";
                 }
                 ?>
@@ -72,18 +84,21 @@ function creerTableaucouleur($nombrecase,$largeurtableau){
         </tbody>
     </table>
     <h2>Level 3</h2>
-    <table class="">
+    <table>
         <tbody>
             <tr>
                 <?php
-                    for ($i=0;$i<$largeur3*$largeur3;$i++){
-                        if($i%$largeur3==0 && $i!=0) echo "</tr><tr>";
+                    for ($i=0; $i<$largeurGrandTab3*$largeurGrandTab3; $i++){
+                        if($i%$largeurGrandTab3==0 && $i!=0) echo "</tr><tr>";
+
+                        //on tire un des chiffres du releve aléatoirement et il y a que 100 apparitions pour chaque chiffre
                         do{
                             $rand=rand(0,count($nombre)-1);
                         } while($nombreIterationRestante[$rand]==0);
                         $nombreIterationRestante[$rand]-=1;
+
                         echo "<td><table class='petitTableau'>";
-                        creerTableaucouleur($nombre[$rand],3);
+                        creerTableaucouleur($nombre[$rand],$largeurPetitTab3);
                         echo "</table></td>";
                     }
                 ?>
