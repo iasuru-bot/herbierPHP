@@ -36,7 +36,7 @@ foreach ($lignes as $l) {
             <td><?php echo htmlentities($l["DateReleve"]) ?></td>
             <td><?php echo htmlentities($l["Lieu"]) ?></td>
             <td><?php echo htmlentities($l["Releve"]) ?></td>
-            <td><a class="btn btn-sm btn-primary" href="herbier_draw.php?d=<?php echo $l["Releve"] ?>">Voir</a>
+            <td><a class="btn btn-sm btn-primary" href="drawHerbier.php?d=<?php echo $l["Releve"] ?>">Voir</a>
             <a class="btn btn-sm btn-primary" href="./actions/supprimerListe.php?id=<?php echo $l["id"]?>">Supprimer</a>
             <a class="btn btn-sm btn-primary" href="update.php?id=<?php echo $l["id"]?>">Modifier</a></td>
         </tr>

@@ -6,8 +6,7 @@ $title= "Visualisation de l'herbier";
 include "header.php";
 
 //récupération des chiffres de la relevé
-//$nombre = filter_input(INPUT_GET,"d");
-$nombre="0/1/3/9/8/1/2/3/6";
+$nombre = filter_input(INPUT_GET,"d");
 $nombre = explode('/',$nombre);
 
 //Définition des variables globales
@@ -17,14 +16,6 @@ $largeurPetitTab2 = 3;
 $largeurGrandTab3 = 30;
 $largeurPetitTab3 = 3;
 $nombreIterationRestante=["100","100","100","100","100","100","100","100","100"];
-
-//essaie
-/*for ($i=0;$i<count($nombre);$i++){
-    $nombreIterationRestante[] =$largeurGrandTab3*$largeurGrandTab3%count($nombre);
-}
-for ($i=0; $i<$largeurGrandTab3%9; $i++){
-    $nombreIterationRestante[$i] +=1;
-}*/
 
 
 //retourne un tableau colorie fonction du nombre de case a colorier et de la largeur du tableau
@@ -57,7 +48,7 @@ function creerTableaucouleur($nombreCase, $largeurTab){
 ?>
 <div class="container">
     <h1>Visualisation de l'herbier</h1>
-    <h2>Level 1</h2>
+    <!---<h2>Level 1</h2>
     <table class="bordure">
         <tbody>
             <tr>
@@ -82,7 +73,7 @@ function creerTableaucouleur($nombreCase, $largeurTab){
                 ?>
             </tr>
         </tbody>
-    </table>
+    </table>-->
     <h2>Level 3</h2>
     <table>
         <tbody>
@@ -105,9 +96,8 @@ function creerTableaucouleur($nombreCase, $largeurTab){
             </tr>
         </tbody>
     </table>
-
+    <a class="btn btn-sm btn-primary" href="index.php">Retour</a>
 </div>
-
 <?php
 include "footer.php";
 ?>
