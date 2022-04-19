@@ -20,6 +20,4 @@ $req->bindParam(":Releve", $releve);
 
 $req->execute();
 
-$id=$pdo->lastInsertId();
-
-header("location: ../index.php?id=$id");
+header("location: ../index.php");

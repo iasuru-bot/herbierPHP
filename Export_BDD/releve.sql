@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `esaip`
 --
-
+CREATE DATABASE esaip;
+USE esaip;
 -- --------------------------------------------------------
 
 --
@@ -30,11 +31,11 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `releve`;
 CREATE TABLE IF NOT EXISTS `releve` (
                                         `id` int NOT NULL AUTO_INCREMENT,
-                                        `Date` datetime NOT NULL,
+                                        `DateReleve` datetime NOT NULL,
                                         `Lieu` varchar(50) NOT NULL,
-    `Releve` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+    `Releve` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
     PRIMARY KEY (`id`)
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -7,7 +7,7 @@ $_SESSION["token"]=$token;
 $title="Herbiers";
 include "header.php";
 ?>
-    <h1>Relevés</h1>
+<h1>Relevés</h1>
     <?php
 
     include_once "config.php";
@@ -21,7 +21,6 @@ include "header.php";
             <th>Lieu</th>
             <th>Relevé</th>
             <th>Visualiser</th>
-            <th>Supprimer</th>
         </tr>
 
         <?php
@@ -37,8 +36,10 @@ foreach ($lignes as $l) {
             <td><?php echo htmlentities($l["DateReleve"]) ?></td>
             <td><?php echo htmlentities($l["Lieu"]) ?></td>
             <td><?php echo htmlentities($l["Releve"]) ?></td>
-            <td><a target="_blank" class="btn btn-sm btn-primary" href="herbier_draw.php?d=<?php echo $l["Releve"] ?>">voir</a></td>
-    </tr>
+            <td><a class="btn btn-sm btn-primary" href="herbier_draw.php?d=<?php echo $l["Releve"] ?>">Voir</a>
+            <a class="btn btn-sm btn-primary" href="./actions/supprimerListe.php?id=<?php echo $l["id"]?>">Supprimer</a>
+            <a class="btn btn-sm btn-primary" href="update.php?id=<?php echo $l["id"]?>">Modifier</a></td>
+        </tr>
 
 
     <?php
@@ -46,30 +47,29 @@ foreach ($lignes as $l) {
 ?>
     </table>
 </div>
-    <h2>Ajouter un relevé</h2>
-    <div class="row">
-        <div class="col-6">
-            <form method="post" action="actions/creerListe.php">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="DateReleve" class="form-label">Date</label>
-                            <input type="date" class="form-control" id="DateReleve" name="dateReleve" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Lieu" class="form-label">Lieu</label>
-                            <input type="text" class="form-control" id="Lieu" name="lieu" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Releve" class="form-label">Releve</label>
-                            <input type="text" class="form-control" id="Releve" name="releve" required>
-                        </div>
+<h2>Ajouter un relevé</h2>
+<div class="row">
+    <div class="col-6">
+        <form method="post" action="actions/creerListe.php">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="DateReleve" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="DateReleve" name="dateReleve" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Lieu" class="form-label">Lieu</label>
+                        <input type="text" class="form-control" id="Lieu" name="lieu" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Releve" class="form-label">Releve</label>
+                        <input type="text" class="form-control" id="Releve" name="releve" required>
+                    </div>
 
-                        <input type="submit" class="btn btn-primary" value="OK">
-                <input type="hidden" name="token" value="<?php echo $token ?>">
-            </form>
-        </div>
+                    <input type="submit" class="btn btn-primary" value="OK">
+            <input type="hidden" name="token" value="<?php echo $token ?>">
+        </form>
     </div>
-    </div>
+</div>
 <?php
 include "footer.php";
