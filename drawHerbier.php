@@ -96,7 +96,7 @@ function creerTableaucouleur($nombreCase, $largeurTab){
             </tr>
         </tbody>
     </table>
-    <a class="btn btn-sm btn-primary" href="index.php">Retour</a>
+    <a class="btn btn-sm btn-secondary" href="index.php">Retour</a>
 </div>
 <?php
 include "footer.php";
